@@ -1,3 +1,6 @@
+'use client'
+
+import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Card, CardContent } from "@/components/ui/card"
@@ -9,11 +12,15 @@ interface NewsBySectorProps {
   sectorNews: SectorNewsData
 }
 
-export default function NewsBySector({ sectorNews }: NewsBySectorProps) {
-  const sectors = Object.keys(sectorNews)
+const INITIAL_COUNT = 6
+const LOAD_MORE_COUNT = 6
 
-  // Create an "All" category that combines news from all sectors
-  const allNews = Object.values(sectorNews).flat().slice(0, 6)
+export default function NewsBySector({ sectorNews }: NewsBySectorProps) {
+  const [visibleCount, setVisibleCount] = useState(INITIAL_COUNT)
+  const sectors = Object.keys(sectorNews)
+  const allNewsFlat = Object.values(sectorNews).flat()
+  const allNews = allNewsFlat.slice(0, visibleCount)
+  const hasMore = visibleCount < allNewsFlat.length
 
   return (
     <Tabs defaultValue="All" className="w-full">
@@ -61,11 +68,22 @@ export default function NewsBySector({ sectorNews }: NewsBySectorProps) {
           ))}
         </div>
 
-        <div className="mt-8 text-center">
-          <Link href="/category/all" className="text-navy font-medium hover:text-opacity-80 transition-colors">
-            View all news →
-          </Link>
-        </div>
+        {hasMore ? (
+          <div className="mt-8 text-center">
+            <button
+              onClick={() => setVisibleCount(prev => prev + LOAD_MORE_COUNT)}
+              className="text-navy font-medium hover:text-opacity-80 transition-colors border border-gray-200 px-6 py-2 rounded-lg"
+            >
+              Show more ({allNewsFlat.length - visibleCount} remaining)
+            </button>
+          </div>
+        ) : (
+          <div className="mt-8 text-center">
+            <Link href="/category/all" className="text-navy font-medium hover:text-opacity-80 transition-colors">
+              View all news →
+            </Link>
+          </div>
+        )}
       </TabsContent>
 
       {sectors.map((sector) => (

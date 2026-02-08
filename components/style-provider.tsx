@@ -3,13 +3,13 @@
 import * as React from 'react'
 import { createContext, useContext, useEffect, useState } from 'react'
 
-type StyleName = 'v0' | 'studio'
+type StyleName = 'casual' | 'corp'
 
 interface StyleContextValue {
   style: StyleName
   setStyle: (style: StyleName) => void
-  isV0: boolean
-  isStudio: boolean
+  isCasual: boolean
+  isCorp: boolean
 }
 
 const StyleContext = createContext<StyleContextValue | undefined>(undefined)
@@ -19,12 +19,12 @@ interface StyleProviderProps {
   defaultStyle?: StyleName
 }
 
-export function StyleProvider({ children, defaultStyle = 'v0' }: StyleProviderProps) {
+export function StyleProvider({ children, defaultStyle = 'casual' }: StyleProviderProps) {
   const [style, setStyleState] = useState<StyleName>(defaultStyle)
 
   useEffect(() => {
     const stored = localStorage.getItem('nuaico-style') as StyleName | null
-    if (stored === 'v0' || stored === 'studio') {
+    if (stored === 'casual' || stored === 'corp') {
       setStyleState(stored)
       document.documentElement.setAttribute('data-style', stored)
     } else {
@@ -43,8 +43,8 @@ export function StyleProvider({ children, defaultStyle = 'v0' }: StyleProviderPr
       value={{
         style,
         setStyle,
-        isV0: style === 'v0',
-        isStudio: style === 'studio',
+        isCasual: style === 'casual',
+        isCorp: style === 'corp',
       }}
     >
       {children}

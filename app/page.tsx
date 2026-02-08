@@ -2,7 +2,7 @@
 
 import HeroSlideshow from "@/components/hero-slideshow"
 import NewsBySector from "@/components/news-by-sector"
-import StudioHero from "@/components/studio/studio-hero"
+import CorpHero from "@/components/corp/corp-hero"
 import NewsletterSubscription from "@/components/newsletter-subscription"
 import { featuredNews, sectorNews, getTrendingArticles, ALL_ARTICLES, SECTORS } from "@/lib/data"
 import { SectorIcons, Icons } from "@/lib/icons"
@@ -12,15 +12,15 @@ import Image from "next/image"
 import { Card, CardContent } from "@/components/ui/card"
 
 export default function Home() {
-  const { isStudio } = useStyle()
+  const { isCorp } = useStyle()
 
-  if (isStudio) {
+  if (isCorp) {
     const trendingArticles = getTrendingArticles()
     const highlightArticles = ALL_ARTICLES.filter(a => a.aiOpinion).slice(0, 3)
 
     return (
       <main className="min-h-screen bg-brand-muted">
-        <StudioHero />
+        <CorpHero />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
           {/* Today's Highlights */}
@@ -157,7 +157,7 @@ export default function Home() {
     )
   }
 
-  // v0 style home page
+  // casual style home page
   return (
     <main className="min-h-screen bg-brand-muted">
       <div className="container mx-auto px-4 py-8">

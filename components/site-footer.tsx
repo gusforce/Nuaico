@@ -4,9 +4,9 @@ import Link from "next/link"
 import { useStyle } from "@/components/style-provider"
 
 export default function SiteFooter() {
-  const { isStudio } = useStyle()
+  const { isCorp } = useStyle()
 
-  if (isStudio) {
+  if (isCorp) {
     return (
       <footer className="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -53,7 +53,7 @@ export default function SiteFooter() {
     )
   }
 
-  // v0 style footer
+  // casual style footer
   return (
     <footer className="bg-brand text-white py-6 md:py-8">
       <div className="container flex flex-col items-center justify-center gap-4 text-center">

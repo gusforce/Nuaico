@@ -7,7 +7,7 @@ export const SECTORS: Sector[] = [
 ]
 
 export const ALL_ARTICLES: Article[] = [
-  // === AI Studio articles (with full AI analysis) ===
+  // === Corp articles (with full AI analysis) ===
   {
     id: "s1",
     title: "AI-Driven Underwriting Models Show 15% Reduction in Default Rates",
@@ -246,7 +246,7 @@ export const ALL_ARTICLES: Article[] = [
     }
   },
 
-  // === v0 articles (without AI analysis) ===
+  // === casual articles (without AI analysis) ===
   {
     id: "v1",
     title: "OpenAI Unveils GPT-5 with Unprecedented Reasoning Capabilities",

@@ -11,6 +11,8 @@ export default function NuaicoLens({ aiOpinion }: NuaicoLensProps) {
       ? 'text-emerald-600 bg-emerald-50 border-emerald-200'
       : 'text-amber-600 bg-amber-50 border-amber-200'
 
+  const confidenceLabel = `${aiOpinion.confidenceLevel} Confidence`
+
   return (
     <div className="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden">
       <div className="bg-brand-dark px-6 py-4 flex items-center justify-between">
@@ -19,8 +21,11 @@ export default function NuaicoLens({ aiOpinion }: NuaicoLensProps) {
         </h2>
         <div className="flex items-center gap-2">
           <span className="text-xs text-slate-400">Analysis Confidence:</span>
-          <span className={`text-xs font-bold px-2 py-0.5 rounded border ${confidenceColor}`}>
-            {aiOpinion.confidenceLevel}
+          <span
+            className={`text-xs font-bold px-2 py-0.5 rounded border ${confidenceColor}`}
+            aria-label={`Analysis confidence: ${confidenceLabel}`}
+          >
+            {confidenceLabel}
           </span>
         </div>
       </div>

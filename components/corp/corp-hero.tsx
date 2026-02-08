@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 
-export default function StudioHero() {
+export default function CorpHero() {
   return (
     <section className="bg-white border-b border-gray-200 py-16 px-4">
       <div className="max-w-4xl mx-auto text-center space-y-6">

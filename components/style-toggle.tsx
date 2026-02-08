@@ -9,26 +9,26 @@ export default function StyleToggle() {
   return (
     <div className="flex items-center gap-1 rounded-full bg-muted p-1 text-xs font-medium">
       <button
-        onClick={() => setStyle('v0')}
+        onClick={() => setStyle('casual')}
         className={cn(
           'rounded-full px-3 py-1 transition-colors',
-          style === 'v0'
+          style === 'casual'
             ? 'bg-brand text-brand-foreground shadow-sm'
             : 'text-muted-foreground hover:text-foreground'
         )}
       >
-        v0
+        Casual
       </button>
       <button
-        onClick={() => setStyle('studio')}
+        onClick={() => setStyle('corp')}
         className={cn(
           'rounded-full px-3 py-1 transition-colors',
-          style === 'studio'
+          style === 'corp'
             ? 'bg-brand text-brand-foreground shadow-sm'
             : 'text-muted-foreground hover:text-foreground'
         )}
       >
-        Studio
+        Corp
       </button>
     </div>
   )

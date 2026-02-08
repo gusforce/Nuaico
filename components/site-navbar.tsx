@@ -5,13 +5,14 @@ import Image from "next/image"
 import { Menu, Search, ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useStyle } from "@/components/style-provider"
+import SearchDialog from "@/components/search-dialog"
 import StyleToggle from "@/components/style-toggle"
 import { SectorIcons } from "@/lib/icons"
 import { SECTORS } from "@/lib/data"
 
-const v0NavItems = [
+const casualNavItems = [
   { name: "Home", href: "/" },
   { name: "Health", href: "/category/healthcare" },
   { name: "Technology", href: "/category/cybersecurity" },
@@ -24,9 +25,21 @@ const v0NavItems = [
 export default function SiteNavbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [isSectorsOpen, setIsSectorsOpen] = useState(false)
-  const { isStudio } = useStyle()
+  const [searchOpen, setSearchOpen] = useState(false)
+  const { isCorp } = useStyle()
 
-  if (isStudio) {
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault()
+        setSearchOpen(true)
+      }
+    }
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [])
+
+  if (isCorp) {
     return (
       <header className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -70,7 +83,10 @@ export default function SiteNavbar() {
                 )}
               </div>
               <Link href="/about" className="text-sm font-medium text-slate-600 hover:text-slate-900">About</Link>
-              <button className="text-sm font-medium text-slate-600 hover:text-slate-900 flex items-center gap-1">
+              <button
+                className="text-sm font-medium text-slate-600 hover:text-slate-900 flex items-center gap-1"
+                onClick={() => setSearchOpen(true)}
+              >
                 <Search size={18} />
                 Search
               </button>
@@ -116,11 +132,12 @@ export default function SiteNavbar() {
             </div>
           </div>
         </div>
+        <SearchDialog open={searchOpen} onOpenChange={setSearchOpen} />
       </header>
     )
   }
 
-  // v0 style navbar
+  // casual style navbar
   return (
     <header className="sticky top-0 z-50 w-full bg-brand-muted text-brand border-b-4 border-brand/20">
       <div className="container flex h-16 items-center justify-between">
@@ -140,7 +157,7 @@ export default function SiteNavbar() {
             </SheetTrigger>
             <SheetContent side="right" className="w-[280px] sm:w-[350px] bg-white">
               <nav className="flex flex-col gap-6 mt-8">
-                {v0NavItems.map((item) => (
+                {casualNavItems.map((item) => (
                   <Link
                     key={item.name}
                     href={item.href}
@@ -162,6 +179,7 @@ export default function SiteNavbar() {
           </Sheet>
         </div>
       </div>
+      <SearchDialog open={searchOpen} onOpenChange={setSearchOpen} />
     </header>
   )
 }

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback, useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ChevronLeft, ChevronRight } from "lucide-react"
@@ -16,10 +16,12 @@ interface HeroSlideshowProps {
 
 export default function HeroSlideshow({ news }: HeroSlideshowProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [isPaused, setIsPaused] = useState(false)
+  const containerRef = useRef<HTMLDivElement>(null)
 
-  const nextSlide = () => {
+  const nextSlide = useCallback(() => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % news.length)
-  }
+  }, [news.length])
 
   const prevSlide = () => {
     setCurrentIndex((prevIndex) => (prevIndex - 1 + news.length) % news.length)
@@ -27,15 +29,45 @@ export default function HeroSlideshow({ news }: HeroSlideshowProps) {
 
   // Auto-advance slides
   useEffect(() => {
+    if (isPaused) return
+
     const interval = setInterval(() => {
       nextSlide()
     }, 5000)
 
     return () => clearInterval(interval)
-  }, [])
+  }, [isPaused, nextSlide])
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "ArrowLeft") {
+      e.preventDefault()
+      prevSlide()
+    } else if (e.key === "ArrowRight") {
+      e.preventDefault()
+      nextSlide()
+    }
+  }
+
+  const handleBlur = (e: React.FocusEvent) => {
+    if (containerRef.current && !containerRef.current.contains(e.relatedTarget as Node)) {
+      setIsPaused(false)
+    }
+  }
 
   return (
-    <div className="relative overflow-hidden rounded-xl">
+    <div
+      ref={containerRef}
+      className="relative overflow-hidden rounded-xl"
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="Featured news carousel"
+      tabIndex={0}
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      onFocus={() => setIsPaused(true)}
+      onBlur={handleBlur}
+      onKeyDown={handleKeyDown}
+    >
       <div
         className="flex transition-transform duration-500 ease-in-out"
         style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -70,6 +102,11 @@ export default function HeroSlideshow({ news }: HeroSlideshowProps) {
         ))}
       </div>
 
+      {/* Aria-live announcement for current slide */}
+      <div className="sr-only" aria-live="polite">
+        Slide {currentIndex + 1} of {news.length}: {news[currentIndex]?.title}
+      </div>
+
       {/* Left hover zone */}
       <div className="absolute left-0 top-0 bottom-0 w-[15%] group/left z-10">
         <Button
@@ -98,7 +135,7 @@ export default function HeroSlideshow({ news }: HeroSlideshowProps) {
 
       {/* Indicators */}
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5">
-        {news.map((_, index) => (
+        {news.map((item, index) => (
           <button
             key={index}
             className={cn(
@@ -107,7 +144,7 @@ export default function HeroSlideshow({ news }: HeroSlideshowProps) {
             )}
             onClick={() => setCurrentIndex(index)}
           >
-            <span className="sr-only">Go to slide {index + 1}</span>
+            <span className="sr-only">Go to slide {index + 1}: {item.title}</span>
           </button>
         ))}
       </div>
