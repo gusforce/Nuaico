@@ -7,6 +7,8 @@ import { ALL_ARTICLES } from "@/lib/data"
 import { useStyle } from "@/components/style-provider"
 import { Icons } from "@/lib/icons"
 import NuaicoLens from "@/components/corp/nuaico-lens"
+import BookmarkButton from "@/components/bookmark-button"
+import ShareButtons from "@/components/share-buttons"
 import type { Article } from "@/lib/types"
 
 interface ArticlePageContentProps {
@@ -55,6 +57,10 @@ export default function ArticlePageContent({ article }: ArticlePageContentProps)
                     <span className="text-xs text-slate-500">{article.date}</span>
                   </div>
                 )}
+                <div className="flex items-center gap-2 ml-4">
+                  <BookmarkButton slug={article.slug} />
+                  <ShareButtons title={article.title} slug={article.slug} />
+                </div>
               </div>
               {article.sourceUrl && (
                 <a
@@ -134,10 +140,14 @@ export default function ArticlePageContent({ article }: ArticlePageContentProps)
 
         <h1 className="text-4xl font-bold mb-4 text-brand">{article.title}</h1>
 
-        <div className="flex items-center gap-4 text-muted-foreground mb-8">
+        <div className="flex items-center gap-4 text-muted-foreground mb-4">
           <span>{article.author}</span>
           <span>&#8226;</span>
           <span>{article.date}</span>
+        </div>
+        <div className="flex items-center gap-2 mb-8">
+          <BookmarkButton slug={article.slug} />
+          <ShareButtons title={article.title} slug={article.slug} />
         </div>
 
         <div className="relative aspect-video mb-8">

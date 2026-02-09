@@ -44,10 +44,8 @@ export default function SiteNavbar() {
       <header className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
-            <Link href="/" className="flex items-center">
-              <div className="bg-brand-accent text-white p-1 rounded mr-2">
-                <Menu className="w-5 h-5" />
-              </div>
+            <Link href="/" className="flex items-center gap-2">
+              <Image src="/Nuaico_logo_v2.svg" alt="Nuaico Logo" width={52} height={52} />
               <span className="font-heading text-2xl font-bold tracking-tight text-slate-900">Nuaico</span>
             </Link>
 
@@ -56,6 +54,8 @@ export default function SiteNavbar() {
                 <button
                   className="flex items-center gap-1 text-sm font-medium text-slate-600 hover:text-slate-900"
                   onClick={() => setIsSectorsOpen(!isSectorsOpen)}
+                  aria-label="Sectors menu"
+                  aria-expanded={isSectorsOpen}
                 >
                   Sectors <ChevronDown className={`w-4 h-4 transition-transform ${isSectorsOpen ? 'rotate-180' : ''}`} />
                 </button>
@@ -142,12 +142,21 @@ export default function SiteNavbar() {
     <header className="sticky top-0 z-50 w-full bg-brand-muted text-brand border-b-4 border-brand/20">
       <div className="container flex h-16 items-center justify-between">
         <Link href="/" className="flex items-center space-x-2">
-          <Image src="/images/nuaico-logo.png" alt="Nuaico Logo" width={40} height={40} />
+          <Image src="/Nuaico_logo_v2.svg" alt="Nuaico Logo" width={52} height={52} />
           <span className="font-bold text-2xl tracking-tight text-brand">Nuaico</span>
         </Link>
 
         <div className="flex items-center gap-2">
           <StyleToggle />
+          <Button
+            variant="ghost"
+            size="icon"
+            className="hidden md:inline-flex text-brand hover:bg-brand/10 hover:text-brand"
+            onClick={() => setSearchOpen(true)}
+            aria-label="Search articles"
+          >
+            <Search className="h-5 w-5" />
+          </Button>
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="text-brand hover:bg-brand/10 hover:text-brand">

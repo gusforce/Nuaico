@@ -24,7 +24,7 @@ export default function Home() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
           {/* Today's Highlights */}
-          <section>
+          <section id="highlights">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-2xl font-bold text-slate-900 font-heading flex items-center gap-2">
                 <Icons.Zap className="text-brand-accent" /> Today&apos;s Highlights

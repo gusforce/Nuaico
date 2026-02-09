@@ -14,7 +14,12 @@ export default function CorpHero() {
           Unbiased AI-powered analysis for busy professionals.
         </p>
         <div className="flex justify-center gap-4 pt-4">
-          <button className="bg-brand-dark text-white px-8 py-3 rounded-full font-medium hover:opacity-90 transition-transform hover:-translate-y-1">
+          <button
+            className="bg-brand-dark text-white px-8 py-3 rounded-full font-medium hover:opacity-90 transition-transform hover:-translate-y-1"
+            onClick={() => {
+              document.getElementById('highlights')?.scrollIntoView({ behavior: 'smooth' })
+            }}
+          >
             Start Reading
           </button>
           <Link href="/about" className="text-slate-600 px-8 py-3 font-medium hover:text-slate-900">

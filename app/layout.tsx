@@ -7,6 +7,8 @@ import { StyleProvider } from "@/components/style-provider"
 import SiteNavbar from "@/components/site-navbar"
 import SiteFooter from "@/components/site-footer"
 import { Toaster } from "@/components/ui/sonner"
+import ReadingProgress from "@/components/reading-progress"
+import NuChatWidget from "@/components/nu-chat/nu-chat-widget"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
 const merriweather = Merriweather({
@@ -53,10 +55,12 @@ export default function RootLayout({
         </a>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <StyleProvider defaultStyle="casual">
+            <ReadingProgress />
             <SiteNavbar />
             <div id="main-content">{children}</div>
             <SiteFooter />
             <Toaster />
+            <NuChatWidget />
           </StyleProvider>
         </ThemeProvider>
       </body>

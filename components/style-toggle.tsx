@@ -16,8 +16,9 @@ export default function StyleToggle() {
             ? 'bg-brand text-brand-foreground shadow-sm'
             : 'text-muted-foreground hover:text-foreground'
         )}
+        aria-pressed={style === 'casual'}
       >
-        Casual
+        V1
       </button>
       <button
         onClick={() => setStyle('corp')}
@@ -27,8 +28,9 @@ export default function StyleToggle() {
             ? 'bg-brand text-brand-foreground shadow-sm'
             : 'text-muted-foreground hover:text-foreground'
         )}
+        aria-pressed={style === 'corp'}
       >
-        Corp
+        V2
       </button>
     </div>
   )

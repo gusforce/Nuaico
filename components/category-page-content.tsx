@@ -89,20 +89,38 @@ export default function CategoryPageContent({ articles, sectorOrAll, sectorName 
           {/* Sidebar */}
           <div className="space-y-6">
             <div className="bg-white rounded-lg border border-gray-200 p-5">
-              <h3 className="font-bold text-slate-900 mb-4 text-sm uppercase tracking-wide">This Week in {sector}</h3>
+              <h2 className="font-bold text-slate-900 mb-4 text-sm uppercase tracking-wide">This Week in {sector}</h2>
               <ul className="space-y-4">
-                <li className="flex gap-3 items-start">
-                  <div className="w-1.5 h-1.5 bg-brand-accent rounded-full mt-2 shrink-0" />
-                  <p className="text-sm text-slate-600 leading-snug">Regulatory hearing scheduled for upcoming compliance review.</p>
-                </li>
-                <li className="flex gap-3 items-start">
-                  <div className="w-1.5 h-1.5 bg-brand-accent rounded-full mt-2 shrink-0" />
-                  <p className="text-sm text-slate-600 leading-snug">Investment in {sector} AI startups topped $4B this quarter.</p>
-                </li>
-                <li className="flex gap-3 items-start">
-                  <div className="w-1.5 h-1.5 bg-brand-accent rounded-full mt-2 shrink-0" />
-                  <p className="text-sm text-slate-600 leading-snug">Major partnership announced between industry leaders.</p>
-                </li>
+                {(() => {
+                  const topArticles = articles
+                    .sort((a, b) => (b.impactScore ?? 0) - (a.impactScore ?? 0))
+                    .slice(0, 3)
+
+                  const bullets: string[] = []
+                  for (const article of topArticles) {
+                    if (bullets.length >= 3) break
+                    if (article.aiOpinion?.takeaways?.length) {
+                      bullets.push(article.aiOpinion.takeaways[0])
+                    } else if (article.aiSummary?.length) {
+                      bullets.push(article.aiSummary[0])
+                    } else {
+                      bullets.push(article.excerpt)
+                    }
+                  }
+
+                  if (bullets.length === 0) {
+                    return (
+                      <li className="text-sm text-slate-500 italic">No highlights available yet.</li>
+                    )
+                  }
+
+                  return bullets.map((text, i) => (
+                    <li key={i} className="flex gap-3 items-start">
+                      <div className="w-1.5 h-1.5 bg-brand-accent rounded-full mt-2 shrink-0" />
+                      <p className="text-sm text-slate-600 leading-snug">{text}</p>
+                    </li>
+                  ))
+                })()}
               </ul>
             </div>
           </div>

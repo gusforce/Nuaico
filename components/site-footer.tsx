@@ -55,9 +55,23 @@ export default function SiteFooter() {
 
   // casual style footer
   return (
-    <footer className="bg-brand text-white py-6 md:py-8">
-      <div className="container flex flex-col items-center justify-center gap-4 text-center">
-        <p className="text-sm">&copy; {new Date().getFullYear()} Nuaico. All rights reserved.</p>
+    <footer className="bg-brand text-white py-8 md:py-10">
+      <div className="container mx-auto px-4">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-6">
+          <span className="font-bold text-xl tracking-tight">Nuaico</span>
+          <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm">
+            <Link href="/" className="hover:text-white/80 transition-colors">Home</Link>
+            <Link href="/about" className="hover:text-white/80 transition-colors">About</Link>
+            <Link href="/category/finance" className="hover:text-white/80 transition-colors">Finance</Link>
+            <Link href="/category/healthcare" className="hover:text-white/80 transition-colors">Healthcare</Link>
+            <Link href="/category/cybersecurity" className="hover:text-white/80 transition-colors">Cybersecurity</Link>
+            <Link href="/category/energy" className="hover:text-white/80 transition-colors">Energy</Link>
+          </nav>
+        </div>
+        <div className="border-t border-white/20 pt-4 flex flex-col md:flex-row items-center justify-between gap-3 text-sm text-white/70">
+          <p>&copy; {new Date().getFullYear()} Nuaico. All rights reserved.</p>
+          <p>AI-powered news analysis &mdash; <Link href="/subscribe" className="underline hover:text-white">Subscribe to our newsletter</Link></p>
+        </div>
       </div>
     </footer>
   )
