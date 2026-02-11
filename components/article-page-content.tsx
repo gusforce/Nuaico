@@ -113,6 +113,14 @@ export default function ArticlePageContent({ article }: ArticlePageContentProps)
                 </div>
               )}
 
+              {article.content && article.content.trim() !== '' && (
+                <div className="prose max-w-none prose-headings:text-slate-900 prose-p:text-slate-700 prose-p:leading-relaxed">
+                  {article.content.split('\n\n').map((paragraph, idx) => (
+                    <p key={idx}>{paragraph}</p>
+                  ))}
+                </div>
+              )}
+
               {/* Related Stories */}
               <div>
                 <h3 className="font-bold text-lg text-slate-900 mb-4">Related Stories</h3>
@@ -179,6 +187,14 @@ export default function ArticlePageContent({ article }: ArticlePageContentProps)
             </>
           )}
         </div>
+
+        {article.content && article.content.trim() !== '' && (
+          <div className="prose max-w-none prose-headings:text-brand prose-p:text-gray-700 prose-p:leading-relaxed mt-8">
+            {article.content.split('\n\n').map((paragraph, idx) => (
+              <p key={idx}>{paragraph}</p>
+            ))}
+          </div>
+        )}
       </article>
     </div>
   )

@@ -1,12 +1,12 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useRef } from 'react'
 import { usePathname } from 'next/navigation'
 import { X, Sparkles } from 'lucide-react'
 import Image from 'next/image'
 import { cn } from '@/lib/utils'
 import { useStyle } from '@/components/style-provider'
-import { generateResponse } from '@/lib/nu-engine'
+import { generateFallbackResponse } from '@/lib/nu-engine'
 import NuMessageList, { type ChatMessage } from './nu-message-list'
 import NuInput from './nu-input'
 
@@ -27,10 +27,11 @@ export default function NuChatWidget() {
 
   const [isOpen, setIsOpen] = useState(false)
   const [isThinking, setIsThinking] = useState(false)
+  const [abortController, setAbortController] = useState<AbortController | null>(null)
   const [messages, setMessages] = useState<ChatMessage[]>(() => {
     const greeting = isCorp
       ? "Welcome. I'm Nu, Nuaico's analysis assistant. I can summarize articles, surface trends, and provide sector-specific insights. How can I help?"
-      : "Hey! I'm Nu, your AI news companion. I can summarize articles, find trending stories, and help you explore AI news across 12 sectors. What would you like to know?"
+      : "Hey! I'm Nu, your AI news companion. I can summarize articles, find trending stories, and help you explore AI news across 6 sectors. What would you like to know?"
     return [{
       id: nextId(),
       role: 'nu' as const,
@@ -43,28 +44,128 @@ export default function NuChatWidget() {
     }]
   })
 
-  const handleSend = useCallback((text: string) => {
+  // Track whether we are currently streaming (for the stop button)
+  const isStreamingRef = useRef(false)
+
+  const handleSend = useCallback(async (text: string) => {
     const userMsg: ChatMessage = { id: nextId(), role: 'user', text }
     setMessages(prev => [...prev, userMsg])
     setIsThinking(true)
 
-    setTimeout(() => {
-      const response = generateResponse(text, currentSlug)
-      const nuMsg: ChatMessage = {
-        id: nextId(),
-        role: 'nu',
-        text: response.text,
-        articles: response.articles,
-        suggestions: response.suggestions
+    // Build history from existing messages (last 20 messages = ~10 pairs)
+    const historyMessages = [...messages, userMsg]
+      .filter(m => m.role === 'user' || m.role === 'nu')
+      .slice(-20)
+      .map(m => ({
+        role: (m.role === 'user' ? 'user' : 'assistant') as 'user' | 'assistant',
+        content: m.text,
+      }))
+    // Remove the last entry (the current user message) since the API adds it
+    historyMessages.pop()
+
+    const controller = new AbortController()
+    setAbortController(controller)
+    isStreamingRef.current = true
+
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: text,
+          history: historyMessages,
+          articleSlug: currentSlug,
+        }),
+        signal: controller.signal,
+      })
+
+      if (!res.ok || !res.body) {
+        throw new Error('API request failed')
       }
-      setMessages(prev => [...prev, nuMsg])
+
+      const reader = res.body.getReader()
+      const decoder = new TextDecoder()
+      const nuMsgId = nextId()
+      let accumulated = ''
+      let firstChunk = true
+
+      while (true) {
+        const { done, value } = await reader.read()
+        if (done) break
+
+        const chunk = decoder.decode(value, { stream: true })
+        accumulated += chunk
+
+        if (firstChunk) {
+          setIsThinking(false)
+          setMessages(prev => [...prev, {
+            id: nuMsgId,
+            role: 'nu',
+            text: accumulated,
+            isStreaming: true,
+          }])
+          firstChunk = false
+        } else {
+          setMessages(prev => prev.map(m =>
+            m.id === nuMsgId ? { ...m, text: accumulated } : m
+          ))
+        }
+      }
+
+      // Stream complete -- finalize message with suggestions
+      setMessages(prev => prev.map(m =>
+        m.id === nuMsgId
+          ? {
+              ...m,
+              text: accumulated,
+              isStreaming: false,
+              suggestions: [
+                "What's trending?",
+                "Tell me more",
+                "What can you do?"
+              ],
+            }
+          : m
+      ))
+    } catch (err: unknown) {
+      // If aborted by user, finalize the message as-is
+      if (err instanceof DOMException && err.name === 'AbortError') {
+        setMessages(prev => prev.map(m =>
+          m.isStreaming ? { ...m, isStreaming: false } : m
+        ))
+      } else {
+        // Fall back to local engine
+        setIsThinking(false)
+        const fallback = generateFallbackResponse(text, currentSlug)
+        const nuMsg: ChatMessage = {
+          id: nextId(),
+          role: 'nu',
+          text: fallback.text,
+          articles: fallback.articles,
+          suggestions: fallback.suggestions,
+        }
+        setMessages(prev => {
+          // Remove any incomplete streaming message
+          const cleaned = prev.filter(m => !m.isStreaming)
+          return [...cleaned, nuMsg]
+        })
+      }
+    } finally {
       setIsThinking(false)
-    }, 500)
-  }, [currentSlug])
+      setAbortController(null)
+      isStreamingRef.current = false
+    }
+  }, [currentSlug, messages])
+
+  const handleStop = useCallback(() => {
+    abortController?.abort()
+  }, [abortController])
 
   const handleSuggestionClick = useCallback((text: string) => {
     handleSend(text)
   }, [handleSend])
+
+  const isStreaming = messages.some(m => m.isStreaming)
 
   return (
     <>
@@ -127,6 +228,8 @@ export default function NuChatWidget() {
           onSend={handleSend}
           disabled={isThinking}
           isCorp={isCorp}
+          isStreaming={isStreaming}
+          onStop={handleStop}
         />
       </div>
 

@@ -22,19 +22,19 @@ export const metadata: Metadata = {
     default: "Nuaico - AI Sector News & Analysis",
     template: "%s | Nuaico",
   },
-  description: "AI-powered news analysis across 12 industry sectors. Get unbiased insights on how artificial intelligence is reshaping finance, healthcare, energy, and more.",
+  description: "AI-powered news analysis across 6 industry sectors. Get unbiased insights on how artificial intelligence is reshaping finance, healthcare, energy, and more.",
   metadataBase: new URL("https://nuaico.com"),
   openGraph: {
     type: "website",
     siteName: "Nuaico",
     title: "Nuaico - AI Sector News & Analysis",
-    description: "AI-powered news analysis across 12 industry sectors.",
+    description: "AI-powered news analysis across 6 industry sectors.",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
     title: "Nuaico - AI Sector News & Analysis",
-    description: "AI-powered news analysis across 12 industry sectors.",
+    description: "AI-powered news analysis across 6 industry sectors.",
   },
   robots: {
     index: true,

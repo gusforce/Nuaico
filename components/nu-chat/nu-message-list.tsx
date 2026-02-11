@@ -12,6 +12,7 @@ export interface ChatMessage {
   text: string
   articles?: Article[]
   suggestions?: string[]
+  isStreaming?: boolean
 }
 
 interface NuMessageListProps {
@@ -48,6 +49,9 @@ export default function NuMessageList({ messages, isCorp, onSuggestionClick }: N
                   : 'bg-gray-100 text-gray-800 rounded-bl-md'
             )}>
               {renderText(msg.text)}
+              {msg.isStreaming && (
+                <span className="inline-block w-[2px] h-[1em] bg-current ml-0.5 align-middle animate-pulse" />
+              )}
             </div>
 
             {msg.articles && msg.articles.length > 0 && (
@@ -103,7 +107,44 @@ export default function NuMessageList({ messages, isCorp, onSuggestionClick }: N
 }
 
 function renderText(text: string) {
-  // Simple markdown-ish rendering for bold text
+  // Split into lines, then process each line
+  const lines = text.split('\n')
+  const elements: React.ReactNode[] = []
+  let bulletBuffer: React.ReactNode[] = []
+  let keyIdx = 0
+
+  const flushBullets = () => {
+    if (bulletBuffer.length > 0) {
+      elements.push(
+        <ul key={`ul-${keyIdx++}`} className="list-disc list-inside my-1 space-y-0.5">
+          {bulletBuffer}
+        </ul>
+      )
+      bulletBuffer = []
+    }
+  }
+
+  lines.forEach((line, lineIdx) => {
+    if (line.startsWith('- ')) {
+      // Bullet list item
+      bulletBuffer.push(
+        <li key={`li-${lineIdx}`}>{renderInline(line.slice(2))}</li>
+      )
+    } else {
+      flushBullets()
+      if (lineIdx > 0) {
+        elements.push(<br key={`br-${lineIdx}`} />)
+      }
+      elements.push(<span key={`line-${lineIdx}`}>{renderInline(line)}</span>)
+    }
+  })
+
+  flushBullets()
+  return elements
+}
+
+function renderInline(text: string): React.ReactNode[] {
+  // Handle **bold** inline formatting
   const parts = text.split(/(\*\*[^*]+\*\*)/g)
   return parts.map((part, i) => {
     if (part.startsWith('**') && part.endsWith('**')) {

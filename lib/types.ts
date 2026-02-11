@@ -1,16 +1,10 @@
 export type Sector =
   | 'Finance'
   | 'Healthcare'
+  | 'Technology'
   | 'Energy'
-  | 'Manufacturing'
-  | 'Retail'
-  | 'Media'
   | 'Government'
-  | 'Education'
-  | 'Transportation'
-  | 'Cybersecurity'
-  | 'Real Estate'
-  | 'Agriculture'
+  | 'Industry'
 
 export interface AIOpinion {
   change: string

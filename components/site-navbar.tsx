@@ -14,11 +14,11 @@ import { SECTORS } from "@/lib/data"
 
 const casualNavItems = [
   { name: "Home", href: "/" },
-  { name: "Health", href: "/category/healthcare" },
-  { name: "Technology", href: "/category/cybersecurity" },
+  { name: "Healthcare", href: "/category/healthcare" },
+  { name: "Technology", href: "/category/technology" },
   { name: "Finance", href: "/category/finance" },
-  { name: "Governance", href: "/category/government" },
-  { name: "Industry", href: "/category/manufacturing" },
+  { name: "Government", href: "/category/government" },
+  { name: "Industry", href: "/category/industry" },
   { name: "About", href: "/about" },
 ]
 

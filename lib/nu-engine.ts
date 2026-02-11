@@ -40,13 +40,13 @@ function searchArticles(query: string): Article[] {
   )
 }
 
-export function generateResponse(userMessage: string, currentArticleSlug?: string): NuResponse {
+export function generateFallbackResponse(userMessage: string, currentArticleSlug?: string): NuResponse {
   const msg = userMessage.trim().toLowerCase()
 
   // Greeting
   if (matchesAny(msg, ['hi', 'hello', 'hey', 'greetings', 'sup', 'yo', 'howdy'])) {
     return {
-      text: "Hey! I'm Nu, your AI news companion. I can summarize articles, find trending stories, and help you explore AI news across 12 sectors. What would you like to know?",
+      text: "Hey! I'm Nu, your AI news companion. I can summarize articles, find trending stories, and help you explore AI news across 6 sectors. What would you like to know?",
       suggestions: [
         "What's trending right now?",
         "Recommend me something to read",
@@ -58,10 +58,10 @@ export function generateResponse(userMessage: string, currentArticleSlug?: strin
   // Help
   if (matchesAny(msg, ['help', 'what can you do', 'commands', 'how do you work', 'capabilities'])) {
     return {
-      text: "Here's what I can help with:\n\n- **Summarize** the article you're reading\n- **Find trending** stories (high-impact news)\n- **Explore sectors** like Finance, Healthcare, Energy, and more\n- **Get recommendations** based on impact scores\n- **Analyze impact** of specific topics\n\nJust ask naturally!",
+      text: "Here's what I can help with:\n\n- **Summarize** the article you're reading\n- **Find trending** stories (high-impact news)\n- **Explore sectors** like Finance, Healthcare, Technology, and more\n- **Get recommendations** based on impact scores\n- **Analyze impact** of specific topics\n\nJust ask naturally!",
       suggestions: [
         "What's trending?",
-        "Tell me about Cybersecurity news",
+        "Tell me about Technology news",
         "What should I read?"
       ]
     }
@@ -105,7 +105,7 @@ export function generateResponse(userMessage: string, currentArticleSlug?: strin
       articles: top,
       suggestions: [
         "Tell me more about the first one",
-        "Any Cybersecurity news?",
+        "Any Technology news?",
         "Recommend something to read"
       ]
     }

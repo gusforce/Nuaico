@@ -151,7 +151,15 @@ export default function CategoryPageContent({ articles, sectorOrAll, sectorName 
               <p className="text-muted-foreground mb-3">{item.excerpt}</p>
               <div className="flex items-center justify-between text-sm text-muted-foreground">
                 <span>{item.author}</span>
-                <span>{item.date}</span>
+                <div className="flex items-center gap-2">
+                  {item.impactScore != null && (
+                    <span className="inline-flex items-center gap-1 bg-brand-accent/10 text-brand-accent text-xs font-bold px-2 py-0.5 rounded">
+                      <Icons.Activity size={12} />
+                      {item.impactScore}
+                    </span>
+                  )}
+                  <span>{item.date}</span>
+                </div>
               </div>
             </CardContent>
           </Card>
