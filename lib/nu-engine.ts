@@ -46,7 +46,7 @@ export function generateFallbackResponse(userMessage: string, currentArticleSlug
   // Greeting
   if (matchesAny(msg, ['hi', 'hello', 'hey', 'greetings', 'sup', 'yo', 'howdy'])) {
     return {
-      text: "Hey! I'm Nu, your AI news companion. I can summarize articles, find trending stories, and help you explore AI news across 6 sectors. What would you like to know?",
+      text: "Hey! I'm Nu, your AI news companion. I can summarize articles, find trending stories, and help you explore AI news across 5 sectors. What would you like to know?",
       suggestions: [
         "What's trending right now?",
         "Recommend me something to read",

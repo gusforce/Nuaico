@@ -31,7 +31,7 @@ export default function NuChatWidget() {
   const [messages, setMessages] = useState<ChatMessage[]>(() => {
     const greeting = isCorp
       ? "Welcome. I'm Nu, Nuaico's analysis assistant. I can summarize articles, surface trends, and provide sector-specific insights. How can I help?"
-      : "Hey! I'm Nu, your AI news companion. I can summarize articles, find trending stories, and help you explore AI news across 6 sectors. What would you like to know?"
+      : "Hey! I'm Nu, your AI news companion. I can summarize articles, find trending stories, and help you explore AI news across 5 sectors. What would you like to know?"
     return [{
       id: nextId(),
       role: 'nu' as const,

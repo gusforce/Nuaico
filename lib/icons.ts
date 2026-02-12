@@ -4,7 +4,6 @@ import {
   Zap,
   Factory,
   Cpu,
-  Landmark,
   Search,
   Menu,
   X,
@@ -23,7 +22,6 @@ export const SectorIcons: Record<Sector, typeof TrendingUp> = {
   Healthcare: Activity,
   Technology: Cpu,
   Energy: Zap,
-  Government: Landmark,
   Industry: Factory,
 }
 

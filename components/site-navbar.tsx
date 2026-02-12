@@ -17,7 +17,6 @@ const casualNavItems = [
   { name: "Healthcare", href: "/category/healthcare" },
   { name: "Technology", href: "/category/technology" },
   { name: "Finance", href: "/category/finance" },
-  { name: "Government", href: "/category/government" },
   { name: "Industry", href: "/category/industry" },
   { name: "About", href: "/about" },
 ]
@@ -94,8 +93,8 @@ export default function SiteNavbar() {
 
             <div className="hidden md:flex items-center gap-3">
               <StyleToggle />
-              <Button className="bg-brand-dark text-white rounded-full text-sm hover:opacity-90">
-                Get Daily Brief
+              <Button className="bg-brand-dark text-white rounded-full text-sm hover:opacity-90" asChild>
+                <Link href="/subscribe">Get Daily Brief</Link>
               </Button>
             </div>
 

@@ -29,7 +29,6 @@ export default function SiteFooter() {
                 <li><Link href="/category/healthcare" className="hover:text-white">Healthcare</Link></li>
                 <li><Link href="/category/technology" className="hover:text-white">Technology</Link></li>
                 <li><Link href="/category/energy" className="hover:text-white">Energy</Link></li>
-                <li><Link href="/category/government" className="hover:text-white">Government</Link></li>
                 <li><Link href="/category/industry" className="hover:text-white">Industry</Link></li>
               </ul>
             </div>
@@ -37,9 +36,9 @@ export default function SiteFooter() {
               <h4 className="text-white font-semibold mb-4">Company</h4>
               <ul className="space-y-2 text-sm">
                 <li><Link href="/about" className="hover:text-white">About Methodology</Link></li>
-                <li className="cursor-pointer hover:text-white">Contact</li>
-                <li className="cursor-pointer hover:text-white">Privacy Policy</li>
-                <li className="cursor-pointer hover:text-white">Terms of Service</li>
+                <li><Link href="/about" className="hover:text-white">Contact</Link></li>
+                <li><Link href="/privacy" className="hover:text-white">Privacy Policy</Link></li>
+                <li><Link href="/terms" className="hover:text-white">Terms of Service</Link></li>
               </ul>
             </div>
           </div>
@@ -68,7 +67,6 @@ export default function SiteFooter() {
             <Link href="/category/healthcare" className="hover:text-white/80 transition-colors">Healthcare</Link>
             <Link href="/category/technology" className="hover:text-white/80 transition-colors">Technology</Link>
             <Link href="/category/energy" className="hover:text-white/80 transition-colors">Energy</Link>
-            <Link href="/category/government" className="hover:text-white/80 transition-colors">Government</Link>
             <Link href="/category/industry" className="hover:text-white/80 transition-colors">Industry</Link>
           </nav>
         </div>

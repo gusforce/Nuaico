@@ -1,8 +1,11 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
-import { ALL_ARTICLES, SECTORS } from "@/lib/data"
+import { SECTORS } from "@/lib/data"
+import { getAllArticles, getArticlesBySector } from "@/lib/db"
 import CategoryPageContent from "@/components/category-page-content"
 import type { Sector } from "@/lib/types"
+
+export const revalidate = 300
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -43,8 +46,8 @@ export default async function CategoryPage({ params }: Props) {
   if (!sectorOrAll) notFound()
 
   const articles = sectorOrAll === 'all'
-    ? ALL_ARTICLES
-    : ALL_ARTICLES.filter(a => a.sector === sectorOrAll)
+    ? await getAllArticles()
+    : await getArticlesBySector(sectorOrAll)
   const sectorName = sectorOrAll === 'all' ? 'All News' : sectorOrAll
 
   return <CategoryPageContent articles={articles} sectorOrAll={sectorOrAll} sectorName={sectorName} />

@@ -18,11 +18,27 @@ export function useNewsletter() {
       return
     }
     setIsSubmitting(true)
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    toast.success("Thanks for subscribing! Check your inbox soon.")
-    setEmail("")
-    setIsSubmitting(false)
+    try {
+      const response = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      })
+      const data = await response.json()
+      if (response.ok) {
+        toast.success("Thanks for subscribing! Check your inbox soon.")
+        setEmail("")
+      } else if (response.status === 409) {
+        toast.info("You're already subscribed!")
+        setEmail("")
+      } else {
+        toast.error(data.error || "Failed to subscribe. Please try again.")
+      }
+    } catch {
+      toast.error("Network error. Please try again.")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return { email, setEmail, isSubmitting, handleSubmit }

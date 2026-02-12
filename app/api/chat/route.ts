@@ -1,16 +1,16 @@
 import Anthropic from '@anthropic-ai/sdk'
-import { getArticleBySlug, ALL_ARTICLES } from '@/lib/data'
+import { getArticleBySlug, getAllArticles } from '@/lib/db'
 
 const anthropic = new Anthropic()
 
-const NU_PERSONA = `You are Nu, Nuaico's AI news analysis assistant. You help users understand AI's impact across 6 industry sectors: Finance, Healthcare, Technology, Energy, Government, Industry. Be concise, informative, and reference specific articles when relevant. Format responses with markdown (bold, bullets).`
+const NU_PERSONA = `You are Nu, Nuaico's AI news analysis assistant. You help users understand AI's impact across 5 industry sectors: Finance, Healthcare, Technology, Energy, and Industry. Be concise, informative, and reference specific articles when relevant. Format responses with markdown (bold, bullets).`
 
-function buildSystemPrompt(articleSlug?: string): string {
+async function buildSystemPrompt(articleSlug?: string): Promise<string> {
   let system = NU_PERSONA
 
   // If viewing a specific article, include its full data
   if (articleSlug) {
-    const article = getArticleBySlug(articleSlug)
+    const article = await getArticleBySlug(articleSlug)
     if (article) {
       system += `\n\nThe user is currently reading this article:\n`
       system += `Title: ${article.title}\n`
@@ -30,8 +30,9 @@ function buildSystemPrompt(articleSlug?: string): string {
   }
 
   // Include compact list of all articles as general knowledge
-  system += `\n\nYou have knowledge of the following ${ALL_ARTICLES.length} articles on Nuaico:\n`
-  ALL_ARTICLES.forEach(a => {
+  const allArticles = await getAllArticles()
+  system += `\n\nYou have knowledge of the following ${allArticles.length} articles on Nuaico:\n`
+  allArticles.forEach(a => {
     system += `- "${a.title}" [${a.sector}]${a.impactScore ? ` Impact:${a.impactScore}` : ''} slug:${a.slug}\n`
   })
 
@@ -53,7 +54,7 @@ export async function POST(request: Request) {
       })
     }
 
-    const systemPrompt = buildSystemPrompt(articleSlug)
+    const systemPrompt = await buildSystemPrompt(articleSlug)
 
     const messages: { role: 'user' | 'assistant'; content: string }[] = [
       ...(history || []),

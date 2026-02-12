@@ -1,7 +1,9 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
-import { getArticleBySlug, ALL_ARTICLES } from "@/lib/data"
+import { getArticleBySlug, getAllArticles, getArticlesBySector } from "@/lib/db"
 import ArticlePageContent from "@/components/article-page-content"
+
+export const revalidate = 300
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -9,7 +11,7 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
-  const article = getArticleBySlug(slug)
+  const article = await getArticleBySlug(slug)
   if (!article) return {}
 
   return {
@@ -34,13 +36,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export async function generateStaticParams() {
-  return ALL_ARTICLES.map((article) => ({ slug: article.slug }))
+  const articles = await getAllArticles()
+  return articles.map((article) => ({ slug: article.slug }))
 }
 
 export default async function NewsArticlePage({ params }: Props) {
   const { slug } = await params
-  const article = getArticleBySlug(slug)
+  const article = await getArticleBySlug(slug)
   if (!article) notFound()
+
+  // Get related articles from the same sector
+  const sectorArticles = await getArticlesBySector(article.sector)
+  const relatedArticles = sectorArticles.filter(a => a.id !== article.id).slice(0, 2)
 
   return (
     <>
@@ -63,7 +70,7 @@ export default async function NewsArticlePage({ params }: Props) {
           }),
         }}
       />
-      <ArticlePageContent article={article} />
+      <ArticlePageContent article={article} relatedArticles={relatedArticles} />
     </>
   )
 }

@@ -3,7 +3,6 @@ export type Sector =
   | 'Healthcare'
   | 'Technology'
   | 'Energy'
-  | 'Government'
   | 'Industry'
 
 export interface AIOpinion {

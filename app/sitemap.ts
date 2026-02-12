@@ -1,15 +1,17 @@
 import type { MetadataRoute } from "next"
-import { ALL_ARTICLES, SECTORS } from "@/lib/data"
+import { SECTORS } from "@/lib/data"
+import { getAllArticles } from "@/lib/db"
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://nuaico.com"
+  const articles = await getAllArticles()
 
   const staticPages: MetadataRoute.Sitemap = [
     { url: baseUrl, lastModified: new Date(), changeFrequency: "daily", priority: 1 },
     { url: `${baseUrl}/about`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
   ]
 
-  const articlePages: MetadataRoute.Sitemap = ALL_ARTICLES.map(article => ({
+  const articlePages: MetadataRoute.Sitemap = articles.map(article => ({
     url: `${baseUrl}/news/${article.slug}`,
     lastModified: new Date(),
     changeFrequency: "weekly",

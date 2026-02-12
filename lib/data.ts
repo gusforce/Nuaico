@@ -1,7 +1,7 @@
 import type { Article, Sector, SectorNewsData } from "./types"
 
 export const SECTORS: Sector[] = [
-  'Finance', 'Healthcare', 'Technology', 'Energy', 'Government', 'Industry'
+  'Finance', 'Healthcare', 'Technology', 'Energy', 'Industry'
 ]
 
 export const ALL_ARTICLES: Article[] = [
@@ -161,45 +161,6 @@ export const ALL_ARTICLES: Article[] = [
         "12% cost reduction in raw materials.",
         "Rise of machine-to-machine commerce.",
         "Digital infrastructure is now a barrier to entry for suppliers."
-      ]
-    }
-  },
-  {
-    id: "s5",
-    title: "AI Educational Tutors Outperform Classroom Averages in Math Proficiency",
-    slug: "ai-educational-tutors",
-    excerpt: "A statewide pilot program utilizing personalized AI math tutors showed students improving by 1.5 grade levels in a single semester.",
-    content: "A statewide pilot program across 340 public schools has produced compelling evidence that AI-powered personalized tutoring can dramatically accelerate math proficiency. Students using the AI tutor for 30 minutes daily over a single semester improved by an average of 1.5 grade levels on standardized assessments, compared to 0.4 grade levels for the control group receiving traditional instruction alone. The gains were most pronounced among students who had previously scored in the bottom quartile, with some improving by more than two full grade levels -- a result that researchers describe as statistically unprecedented in education intervention studies.\n\nThe AI tutor operates on a continuous assessment model, analyzing each student's responses in real time to identify specific conceptual gaps and misconceptions. Unlike static curriculum software, the system dynamically adjusts its explanation style, switching between visual demonstrations, step-by-step procedural walkthroughs, and abstract reasoning challenges based on how each student processes information. Teachers reported that the AI identified learning difficulties that had gone undetected for years in traditional classroom settings, such as students who had memorized procedures without understanding underlying concepts.\n\nThe program has sparked a vigorous debate within the education community. Teacher unions have called for clear guidelines governing the role of AI in classrooms, emphasizing that the technology should supplement rather than replace human instruction. Proponents argue that the AI handles the repetitive, individualized practice that teachers cannot provide in a classroom of 30 students, freeing educators to focus on mentoring, social-emotional development, and higher-order thinking activities. The pilot program's design reflected this philosophy, with teachers spending the time previously allocated to drill-based instruction on collaborative problem-solving sessions.\n\nEquity concerns remain the most significant barrier to broader adoption. The pilot required each student to have access to a tablet or laptop, reliable internet connectivity, and headphones -- resources that are not uniformly available in under-resourced districts. State education officials are exploring funding mechanisms to ensure that AI tutoring tools do not widen the achievement gap along socioeconomic lines, including proposals for federal infrastructure grants specifically earmarked for educational technology in Title I schools.",
-    imageUrl: "/placeholder.svg?height=400&width=800",
-    category: "EdTech",
-    author: "Ed Week Staff",
-    date: "Oct 20, 2023",
-    sector: "Government",
-    sourceDomain: "edweek.org",
-    sourceUrl: "https://example.com/edu-ai",
-    readTime: "7 min read",
-    whyPicked: "Standardized testing data confirms efficacy of 1:1 AI tutoring.",
-    impactScore: 82,
-    tags: ["EdTech", "K-12", "Personalized Learning"],
-    aiSummary: [
-      "A statewide pilot program utilizing personalized AI math tutors showed students improving by 1.5 grade levels in a single semester.",
-      "The AI adapts explanation styles to the student's specific learning gaps, something impossible in a 30-student classroom.",
-      "Teacher unions are calling for guidelines on how these tools interact with existing curriculum."
-    ],
-    aiOpinion: {
-      change: "Education is moving from a factory model (one size fits all) to a personalized model. The teacher's role shifts from lecturer to mentor and facilitator.",
-      beneficiaries: "Students who fall behind in traditional settings. EdTech companies. Traditional textbook publishers are disrupted.",
-      risks: [
-        "Data privacy concerns regarding student learning patterns.",
-        "The 'digital divide' could widen if low-income districts cannot afford the hardware/software.",
-        "Social development may suffer if screen time replaces peer interaction."
-      ],
-      confidenceLevel: "High",
-      confidenceReason: "Quantitative test score improvements are statistically significant across diverse demographics.",
-      takeaways: [
-        "1.5 grade level improvement in one semester.",
-        "Shift to mentorship role for teachers.",
-        "Equity of access remains a major policy hurdle."
       ]
     }
   },
@@ -713,114 +674,6 @@ export const ALL_ARTICLES: Article[] = [
         "AI underwriting is proving more inclusive than traditional credit evaluation for small business lending.",
         "Speed of decisioning is as transformative as improved approval rates for small business borrowers.",
         "Regulatory frameworks must evolve to address both the benefits and risks of AI-driven lending at scale."
-      ]
-    },
-  },
-  {
-    id: "v14",
-    title: "International Data Privacy Agreement Reaches Final Stages",
-    slug: "data-privacy-agreement",
-    excerpt: "A landmark international agreement on data protection and privacy standards is nearing completion after years of negotiation.",
-    content: "Negotiators from 42 countries have reached preliminary consensus on a landmark international data privacy framework that establishes binding cross-border standards for personal data protection, consent mechanisms, and breach notification requirements. The agreement, which has been in development for four years under the auspices of the OECD, would create the first globally recognized baseline for data protection that participating nations commit to implementing in their domestic legal systems. The framework harmonizes divergent approaches -- bridging the gap between the European Union's rights-based GDPR model and the sector-specific, lighter-touch regulatory traditions of the United States and several Asian economies.\n\nThe agreement's most consequential provision establishes mutual recognition of data protection standards among participating nations, effectively creating a \"trusted data zone\" within which personal data can flow across borders without the cumbersome transfer impact assessments and standard contractual clauses that currently complicate international business operations. For multinational corporations, this promises significant compliance cost reductions -- estimated by industry groups at $30 billion to $50 billion annually across participating economies. Technology companies operating cloud infrastructure across multiple jurisdictions stand to benefit most directly, as the agreement resolves the legal uncertainty that has forced many to maintain separate data processing environments for different regulatory regimes.\n\nThe framework includes specific provisions addressing AI and automated decision-making that go beyond existing regulations. Individuals would have the right to meaningful explanation of automated decisions that significantly affect them, along with the right to human review. Organizations deploying AI systems that process personal data would be required to conduct algorithmic impact assessments and maintain registries of high-risk AI applications. These provisions reflect a growing recognition among policymakers that data privacy in the AI era cannot be addressed solely through traditional notice-and-consent frameworks.\n\nSeveral major economies remain outside the agreement. China, Russia, and India have declined to participate, citing concerns about data sovereignty and the framework's potential to constrain domestic technology development. Their absence limits the agreement's global reach and creates the risk of a bifurcated international data governance landscape, with participating nations operating under harmonized rules while excluded economies develop incompatible frameworks. Ratification in participating countries is expected over the next 18 months, with full implementation targeted for 2026.",
-    imageUrl: "/placeholder.svg?height=600&width=800",
-    category: "Policy",
-    author: "Olivia Green",
-    date: "April 30, 2023",
-    sector: "Government",
-    readTime: "6 min read",
-    impactScore: 77,
-    tags: ["Data Privacy", "International Policy", "GDPR", "Cross-Border Data", "AI Regulation"],
-    aiSummary: [
-      "42 countries have reached preliminary consensus on a binding international data privacy framework that creates mutual recognition of data protection standards and a 'trusted data zone' for cross-border data flows.",
-      "The agreement includes AI-specific provisions requiring algorithmic impact assessments, automated decision explanations, and registries of high-risk AI applications.",
-      "China, Russia, and India remain outside the agreement, risking a bifurcated global data governance landscape."
-    ],
-    aiOpinion: {
-      change: "International data governance moves from fragmented national approaches toward a harmonized framework, reducing compliance costs for multinational operations while establishing the first binding global standards for AI and automated decision-making.",
-      beneficiaries: "Multinational technology and cloud companies gain compliance simplification. Individuals gain stronger and more consistent privacy rights. RegTech providers benefit from demand for compliance tools across harmonized standards.",
-      risks: [
-        "Exclusion of China, India, and Russia limits the framework's global effectiveness and could create competing data governance blocs.",
-        "Harmonization to a common baseline may result in weaker protections than the most stringent existing regimes like GDPR.",
-        "Implementation and enforcement will vary across 42 jurisdictions, potentially creating a gap between the framework's promises and practical protections."
-      ],
-      confidenceLevel: "Medium",
-      confidenceReason: "Preliminary consensus has been reached but ratification across 42 nations is complex and political dynamics could delay or weaken final implementation.",
-      takeaways: [
-        "First binding international data privacy framework with AI-specific provisions.",
-        "Cross-border data flow simplification could save multinationals $30-50 billion annually.",
-        "The agreement's impact is limited by the absence of several major economies."
-      ]
-    },
-  },
-  {
-    id: "v15",
-    title: "AI Governance Framework Adopted by Major Tech Companies",
-    slug: "ai-governance-framework",
-    excerpt: "Leading technology firms have committed to a comprehensive set of principles for the ethical development and deployment of artificial intelligence systems.",
-    content: "Fifteen of the world's largest technology companies, representing over $8 trillion in combined market capitalization, have jointly adopted a comprehensive AI governance framework that establishes binding commitments on safety testing, transparency, and responsible deployment of artificial intelligence systems. The framework, developed in consultation with academic ethicists, civil society organizations, and government advisors, goes significantly beyond previous voluntary pledges by including concrete, measurable obligations -- such as mandatory red-team testing for all models above a specified capability threshold, public disclosure of training data categories, and independent third-party audits of high-risk AI applications before deployment.\n\nThe framework's most notable provision establishes a tiered classification system for AI models based on their capabilities, with increasingly stringent safety requirements at each level. Foundation models that demonstrate capabilities in biological, chemical, or cybersecurity domains are classified as high-risk and subject to the most rigorous protocols, including government notification requirements and mandatory vulnerability assessments. Mid-tier models used in consequential domains such as healthcare, finance, and criminal justice require impact assessments and human oversight guarantees. Lower-risk applications face lighter but still meaningful transparency requirements.\n\nIndustry observers are divided on whether the framework represents genuine self-regulation or a strategic effort to preempt more restrictive government legislation. Supporters point to the specificity of the commitments and the inclusion of independent audit mechanisms as evidence of seriousness. Skeptics note that the framework's enforcement relies on a self-funded industry body with no legal authority to impose penalties, and that the participating companies have significant financial incentives to maintain flexibility in how they deploy AI systems. The tension between voluntary industry governance and statutory regulation is likely to persist, with the framework's effectiveness serving as a test case for whether self-regulation can keep pace with rapidly advancing capabilities.\n\nThe framework has already influenced government policy. The European Union's AI Act negotiators cited the industry framework's classification system as a model for their own risk-based approach, and the U.S. National Institute of Standards and Technology is incorporating elements of the framework's safety testing protocols into its AI Risk Management Framework updates. Whether intended as a complement to or substitute for government regulation, the industry framework has established a vocabulary and set of practices that are shaping the global conversation about AI governance.",
-    imageUrl: "/placeholder.svg?height=600&width=800",
-    category: "Technology Policy",
-    author: "Nathan White",
-    date: "April 29, 2023",
-    sector: "Government",
-    readTime: "5 min read",
-    impactScore: 80,
-    tags: ["AI Governance", "Tech Policy", "Self-Regulation", "AI Safety", "Responsible AI"],
-    aiSummary: [
-      "15 major tech companies ($8 trillion combined market cap) adopted a binding AI governance framework with mandatory red-team testing, training data disclosure, and independent audits.",
-      "A tiered classification system imposes escalating safety requirements based on model capability, with the strictest protocols for models with biological, chemical, or cybersecurity capabilities.",
-      "The framework is influencing government policy, with both the EU AI Act and NIST AI Risk Management Framework incorporating its classification and testing approaches."
-    ],
-    aiOpinion: {
-      change: "AI governance shifts from aspirational principles to measurable, auditable commitments, establishing industry-led standards that both complement and shape emerging government regulation.",
-      beneficiaries: "AI safety researchers and auditing firms gain institutional legitimacy and demand. Users and the public benefit from increased transparency. Participating companies benefit from regulatory predictability and reputational positioning.",
-      risks: [
-        "Self-regulation without legal enforcement authority may prove insufficient when safety commitments conflict with competitive or financial pressures.",
-        "Non-participating companies, including major Chinese AI firms, operate outside the framework, creating an uneven global playing field.",
-        "The framework may create compliance theater that satisfies public concern without meaningfully constraining harmful AI deployment."
-      ],
-      confidenceLevel: "Medium",
-      confidenceReason: "The framework's commitments are concrete and measurable, but the absence of legal enforcement mechanisms means compliance depends on sustained voluntary commitment from participating companies.",
-      takeaways: [
-        "Industry AI governance is transitioning from vague principles to specific, auditable obligations.",
-        "The tiered risk classification approach is becoming the de facto standard across both industry and government.",
-        "Effectiveness will depend on enforcement credibility and whether non-participating firms face competitive consequences."
-      ]
-    },
-  },
-  {
-    id: "v16",
-    title: "Smart City Initiative Demonstrates Successful Public-Private Partnership",
-    slug: "smart-city-partnership",
-    excerpt: "An innovative urban development project has shown how collaboration between government and industry can create more efficient and livable cities.",
-    content: "A three-year smart city pilot program in a major metropolitan area has produced measurable improvements in traffic management, energy efficiency, and public safety, demonstrating a replicable model for public-private partnerships in urban technology deployment. The initiative, jointly funded by the city government and a consortium of technology companies, deployed an integrated network of 12,000 IoT sensors, AI-powered traffic management systems, and predictive analytics platforms across a 15-square-mile urban district. The results include a 22% reduction in average commute times, a 18% decrease in building energy consumption, and a 31% improvement in emergency response times -- outcomes that have attracted delegations from over 40 cities worldwide seeking to replicate the approach.\n\nThe traffic management component has drawn the most attention. AI systems analyzing real-time data from traffic cameras, connected vehicles, transit systems, and pedestrian flow sensors dynamically adjust signal timing, reroute traffic around congestion, and coordinate public transit schedules to minimize wait times. The system also prioritizes emergency vehicles, clearing corridors in advance of ambulances and fire trucks by preemptively adjusting signals along their projected routes. Municipal transportation officials report that the AI-managed network handles 15% more vehicle throughput than the previous fixed-timing system while reducing average intersection wait times by 40%.\n\nThe energy efficiency gains came from AI-managed building systems in 200 commercial and public buildings that optimize heating, cooling, and lighting based on occupancy patterns, weather forecasts, and grid pricing signals. The system learned usage patterns within weeks of deployment and began making adjustments that human facilities managers had not considered, such as pre-cooling buildings during off-peak electricity hours and adjusting ventilation rates based on real-time occupancy rather than scheduled assumptions. The combined energy savings across participating buildings exceeded $28 million annually.\n\nThe partnership model itself is being studied as a governance innovation. Rather than the city purchasing technology outright or technology companies donating products for marketing purposes, the initiative used a shared-savings contract in which technology partners funded deployment in exchange for a percentage of documented cost savings over a 10-year period. This aligned incentives, ensuring that the technology companies were motivated to deliver measurable outcomes rather than simply install equipment. Critics note that the model raises questions about private sector access to public data and the long-term dependency on specific technology vendors, but proponents argue that the contractual structure explicitly addresses data ownership and includes provisions for technology transfer at the end of the partnership term.",
-    imageUrl: "/placeholder.svg?height=600&width=800",
-    category: "Urban Planning",
-    author: "Amanda Scott",
-    date: "April 28, 2023",
-    sector: "Government",
-    readTime: "6 min read",
-    impactScore: 71,
-    tags: ["Smart City", "Public-Private Partnership", "Urban Tech", "IoT", "Traffic Management"],
-    aiSummary: [
-      "A three-year smart city pilot achieved 22% commute time reduction, 18% energy savings, and 31% faster emergency response across a 15-square-mile urban district.",
-      "AI-managed traffic systems handle 15% more vehicle throughput while reducing intersection wait times by 40%, with priority routing for emergency vehicles.",
-      "A shared-savings contract model aligns public-private incentives, with technology partners funded by a percentage of documented cost savings over 10 years."
-    ],
-    aiOpinion: {
-      change: "Urban governance gains a proven model for technology integration that delivers measurable quality-of-life improvements through incentive-aligned public-private partnerships rather than traditional procurement.",
-      beneficiaries: "Urban residents through improved commutes and public safety, city governments through cost savings, and technology companies through long-term revenue-sharing contracts. Other cities gain a replicable blueprint for smart infrastructure deployment.",
-      risks: [
-        "Long-term vendor dependency could limit future technology choices and give private companies outsized influence over public infrastructure.",
-        "Comprehensive IoT sensor networks raise surveillance and privacy concerns for urban residents, particularly in public spaces.",
-        "The shared-savings model depends on accurate measurement of cost savings, which is subject to methodological disputes and gaming."
-      ],
-      confidenceLevel: "High",
-      confidenceReason: "Results are based on three years of operational data with independent verification by the city's auditor general and a university research partnership.",
-      takeaways: [
-        "AI-powered urban infrastructure delivers measurable improvements in traffic, energy, and safety.",
-        "Shared-savings partnership models align incentives better than traditional procurement for technology deployment.",
-        "Privacy and vendor dependency are the primary risks that require contractual and regulatory safeguards."
       ]
     },
   },

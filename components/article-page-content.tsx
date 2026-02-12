@@ -3,7 +3,6 @@
 import Image from "next/image"
 import Link from "next/link"
 import { Badge } from "@/components/ui/badge"
-import { ALL_ARTICLES } from "@/lib/data"
 import { useStyle } from "@/components/style-provider"
 import { Icons } from "@/lib/icons"
 import NuaicoLens from "@/components/corp/nuaico-lens"
@@ -13,9 +12,10 @@ import type { Article } from "@/lib/types"
 
 interface ArticlePageContentProps {
   article: Article
+  relatedArticles?: Article[]
 }
 
-export default function ArticlePageContent({ article }: ArticlePageContentProps) {
+export default function ArticlePageContent({ article, relatedArticles = [] }: ArticlePageContentProps) {
   const { isCorp } = useStyle()
 
   if (isCorp) {
@@ -125,7 +125,7 @@ export default function ArticlePageContent({ article }: ArticlePageContentProps)
               <div>
                 <h3 className="font-bold text-lg text-slate-900 mb-4">Related Stories</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {ALL_ARTICLES.filter(a => a.id !== article.id && a.sector === article.sector).slice(0, 2).map(related => (
+                  {relatedArticles.map(related => (
                     <Link key={related.id} href={`/news/${related.slug}`} className="bg-white border border-gray-200 p-4 rounded-lg hover:border-brand-accent transition-colors">
                       <span className="text-xs font-bold text-slate-400 uppercase mb-1 block">{related.sector}</span>
                       <h4 className="font-bold text-slate-900 text-sm line-clamp-2">{related.title}</h4>

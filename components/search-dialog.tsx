@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import {
   CommandDialog,
@@ -10,7 +10,6 @@ import {
   CommandGroup,
   CommandItem,
 } from "@/components/ui/command"
-import { ALL_ARTICLES } from "@/lib/data"
 import type { Article } from "@/lib/types"
 
 interface SearchDialogProps {
@@ -21,14 +20,25 @@ interface SearchDialogProps {
 export default function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
   const router = useRouter()
   const [query, setQuery] = useState("")
+  const [articles, setArticles] = useState<Article[]>([])
+
+  // Fetch articles from API when dialog opens
+  useEffect(() => {
+    if (open && articles.length === 0) {
+      fetch('/api/articles')
+        .then(res => res.json())
+        .then((data: Article[]) => setArticles(data))
+        .catch(() => {})
+    }
+  }, [open, articles.length])
 
   // Group articles by sector, filtered by query
   const filteredArticles = query.length > 0
-    ? ALL_ARTICLES.filter((article) => {
+    ? articles.filter((article) => {
         const searchStr = `${article.title} ${article.excerpt} ${article.sector} ${article.category} ${(article.tags || []).join(' ')}`.toLowerCase()
         return searchStr.includes(query.toLowerCase())
       })
-    : ALL_ARTICLES.slice(0, 8) // Show top 8 when no query
+    : articles.slice(0, 8) // Show top 8 when no query
 
   // Group by sector
   const groupedBySector = filteredArticles.reduce<Record<string, Article[]>>((acc, article) => {
@@ -53,9 +63,9 @@ export default function SearchDialog({ open, onOpenChange }: SearchDialogProps) 
       />
       <CommandList>
         <CommandEmpty>No articles found.</CommandEmpty>
-        {Object.entries(groupedBySector).map(([sector, articles]) => (
+        {Object.entries(groupedBySector).map(([sector, sectorArticles]) => (
           <CommandGroup key={sector} heading={sector}>
-            {articles.map((article) => (
+            {sectorArticles.map((article) => (
               <CommandItem
                 key={article.id}
                 value={`${article.title} ${article.sector}`}
